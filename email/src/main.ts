@@ -6,7 +6,18 @@ async function bootstrap() {
   const app = await NestFactory.createMicroservice<MicroserviceOptions>(
     AppModule,
     {
-      transport: Transport.TCP,
+      transport: Transport.KAFKA,
+      options: {
+        client: {
+          brokers: ['host.docker.internal:9094'],
+          // ssl: true,
+          // sasl: {
+          //   mechanism: 'plain',
+          //   username: 'api_key',
+          //   password: 'secret',
+          // },
+        },
+      },
     },
   );
   app.listen();
